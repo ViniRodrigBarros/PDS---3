@@ -1,78 +1,39 @@
-# Atividade 1 — Senoide Discreta e Identificação de Frequência via FFT
+# Atividade 1 — Senoide Discreta no Espectro
 
-**Disciplina:** Processamento Digital de Sinais
-**Parte 3:** Análise no Domínio da Frequência
-
----
-
-## Enunciado
-
-Gere uma senoide discreta de frequência normalizada *f₀ = 0,1* e comprimento *N = 128*. Represente o sinal no domínio do tempo e calcule seu espectro utilizando a FFT. Identifique, no gráfico, a frequência dominante observada.
+**Pergunta investigada:** uma senoide com frequência normalizada *f₀ = 0,1* e *N = 128* amostras é gerada, plotada no tempo e transformada via FFT. Onde aparece a frequência dominante no espectro? A magnitude bate com o valor teórico?
 
 ---
 
-## 1. Definição do Sinal
+## Setup do experimento
 
-A **frequência normalizada** *f₀ = 0,1* corresponde à fração da taxa de amostragem ocupada pela senoide. Em frequência angular:
+- Frequência normalizada: **f₀ = 0,1** ciclo/amostra (equivalente a *ω₀ = 0,2π rad/amostra*)
+- Comprimento: **N = 128**
+- Sem taxa de amostragem física definida — eixo espectral interpretado em frequência normalizada *[0; 0,5]*
+- Sinal: *x[n] = sin(2π·f₀·n)*, *n = 0, …, 127*
 
-ω₀ = 2π·f₀ = 0,2π rad/amostra
+## Roteiro do código
 
-O sinal gerado é:
+Script: [`atividade_1.m`](../Simulacoes/Octave/atividade_1.m).
 
-x[n] = sin(2π·f₀·n),  n = 0, 1, …, 127
+O fluxo é direto: gera o vetor `x`, aplica `fft(x)`, normaliza a magnitude por `N`, recorta a metade informativa (0 a Nyquist) e localiza o bin de máximo com `max`.
 
-Não foi especificada uma taxa de amostragem *Fs* — a análise pode ser feita em termos de frequência normalizada, com o eixo espectral em [0; 0,5] (de DC a Nyquist).
+## Saída da simulação
 
----
+![Senoide e seu espectro de magnitude](../Resultados/simulacao1atvd1.png)
 
-## 2. Implementação
+| Grandeza | Medido | Teórico |
+|---|---|---|
+| Posição do pico (bin *k*) | 13 | 12,8 (não inteiro) |
+| Frequência detectada | 0,1016 | 0,1000 |
+| Magnitude do pico | **0,4666** | *A/2 = 0,5* |
+| Erro relativo em frequência | 1,6 % | — |
 
-O script [`atividade_1.m`](../Simulacoes/Octave/atividade_1.m) implementa o experimento. Trecho principal:
+## O que o espectro revela
 
-```matlab
-N  = 128;
-f0 = 0.1;
-n  = 0:N-1;
-x  = sin(2*pi*f0*n);
+A energia da senoide aparece concentrada em torno do bin teórico *k = 12,8*. Como esse índice não é inteiro, o `max` da DFT pousa no bin vizinho mais próximo (*k = 13*, *f = 13/128 ≈ 0,1016*). A magnitude também fica um pouco abaixo do *A/2 = 0,5* esperado — porque parte da energia "vazou" para *k = 12* e para os bins adjacentes.
 
-X      = fft(x);
-mag    = abs(X)/N;
-f_nrm  = (0:N-1)/N;
-```
+Esse fenômeno — pico que não cai exato em um bin → vazamento → magnitude reduzida — é o problema padrão de quem trabalha com FFT na vida real. A maneira de minimizá-lo é escolher *N* de forma que *f₀·N* seja inteiro, ou aplicar janelamento (assunto da Atividade 4).
 
-Como o sinal é real, basta exibir a metade *0 ≤ k < N/2* (frequências 0 a 0,5), conforme a simetria conjugada *X[N−k] = X*[k]*.
+## Lição prática
 
----
-
-## 3. Resultados
-
-![Senoide discreta e seu espectro](../Resultados/simulacao1atvd1.png)
-
-Valores medidos na execução do script:
-
-| Grandeza | Valor obtido |
-|---|---|
-| Frequência dominante detectada | *f = 0,1016* (bin *k = 13*) |
-| Frequência esperada | *f₀ = 0,1000* |
-| Magnitude do pico (|X|/N) | 0,4666 |
-
-- **Domínio do tempo:** senoide periódica com *1/f₀ = 10* amostras por período. Em *N = 128* amostras, são contabilizadas *N·f₀ = 12,8* oscilações completas.
-- **Domínio da frequência:** o pico aparece em *k = 13* (*f = 13/128 = 0,1016*). Como *f₀·N = 12,8* não é inteiro, a energia se distribui entre *k = 12* e *k = 13*, com leve vazamento espectral nas demais frequências.
-- **Magnitude do pico ≈ 0,467**, próxima — mas não exatamente igual — a *A/2 = 0,5*. A diferença vem justamente do vazamento: parte da energia que "deveria" estar concentrada em um bin escapa para os vizinhos.
-
----
-
-## 4. Discussão
-
-A FFT confirma o conteúdo conhecido do sinal: existe uma única componente em *f₀ = 0,1*. Se *f₀·N* fosse inteiro (ex.: *f₀ = 12/128 ≈ 0,09375*), o pico cairia exatamente sobre um bin e o espectro teria apenas duas amostras não-nulas. Como esse não é o caso, observa-se um pico "estendido" — efeito que é tema da Atividade 4 (janelamento).
-
-| Aspecto | Valor |
-|---|---|
-| Frequência normalizada | *f₀ = 0,1* |
-| Comprimento | *N = 128* amostras |
-| Períodos contidos | *N·f₀ = 12,8* |
-| Posição teórica do pico no DFT | *k ≈ 12,8* (não inteiro) |
-| Posição medida (bin de máximo) | *k = 13 → f = 0,1016* |
-| Magnitude do pico (medida) | 0,4666 |
-| Magnitude teórica | *A/2 = 0,5* |
-| Erro relativo da frequência | (0,1016 − 0,1)/0,1 = 1,6 % |
+A FFT não devolve "a frequência exata" do sinal: ela amostra o espectro contínuo em *N* pontos discretos. A precisão em frequência é *Δf = 1/N* (em normalizada) — neste caso, 1/128 ≈ 0,0078. Qualquer estimativa melhor do que isso exige interpolação ou *zero-padding* — sem aumentar a resolução real, só refinando a leitura visual do pico.

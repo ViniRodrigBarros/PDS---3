@@ -1,49 +1,55 @@
-# Atividade 3 — Aliasing por Subamostragem
+# Atividade 3 — Aliasing: Quando a Amostragem Mente
 
-## Enunciado
-
-Considere um sinal senoidal com frequência elevada e reduza a taxa de amostragem utilizada em sua geração. Compare os espectros obtidos antes e depois da redução da taxa de amostragem. Explique o fenômeno de aliasing observado.
+**Pergunta investigada:** o que acontece com o espectro quando a taxa de amostragem é insuficiente? E por que esse erro é irreversível?
 
 ---
 
-## 1. Configuração do Experimento
+## Setup do experimento
 
-Senoide de **180 Hz**, amostrada de duas formas diferentes:
+A mesma senoide de **180 Hz** foi amostrada de duas maneiras:
 
-| Caso | *Fs* | *Fs/2* (Nyquist) | Condição |
+| Cenário | *Fs* | *Fs/2* (Nyquist) | Atende Nyquist? |
 |---|---|---|---|
-| A — adequada | 1000 Hz | 500 Hz | *Fs > 2·f* ✓ |
-| B — insuficiente | 200 Hz  | 100 Hz | *Fs < 2·f* ✗ |
+| Adequado | 1000 Hz | 500 Hz | Sim (180 < 500) |
+| Subamostrado | 200 Hz | 100 Hz | **Não** (180 > 100) |
 
-Pelo **Teorema da Amostragem (Nyquist–Shannon)**, para representar fielmente uma senoide de frequência *f*, a taxa de amostragem precisa satisfazer *Fs > 2f*. No caso B, essa condição é violada.
+Pelo Teorema da Amostragem, só o primeiro cenário pode representar a senoide fielmente.
 
----
+## Roteiro do código
 
-## 2. Implementação
+Script: [`atividade_3.m`](../Simulacoes/Octave/atividade_3.m).
 
-Script: [`atividade_3.m`](../Simulacoes/Octave/atividade_3.m)
+A frequência *alias* esperada para o caso ruim foi calculada pela fórmula de rebatimento:
 
-Frequência alias esperada quando *Fs < 2f*:
+```
+f_alias = | f_sinal − round(f_sinal / Fs) · Fs |
+       = | 180 − 1 · 200 | = 20 Hz
+```
 
-f_alias = |f − round(f/Fs)·Fs|
+## Saída da simulação
 
-Para *f = 180 Hz* e *Fs = 200 Hz*:  *f_alias = |180 − 200| = 20 Hz*.
+![Comparação dos espectros — adequado vs subamostrado](../Resultados/simulacao3atvd3.png)
 
----
+Saída do console:
 
-## 3. Resultados
+```
+Frequencia original   : 180.0 Hz
+fs adequado (Nyquist) : 1000.0 Hz -> sem aliasing
+fs reduzido           : 200.0 Hz  -> alias em 20.0 Hz
+```
 
-![Aliasing — comparação dos espectros](../Resultados/simulacao3atvd3.png)
+## O que o espectro revela
 
-- **Caso A (Fs = 1000 Hz):** pico em 180 Hz, exatamente onde deveria estar.
-- **Caso B (Fs = 200 Hz):** o pico aparece em **20 Hz**, *disfarçado* como uma componente de baixa frequência.
+No **Caso 1** (1000 Hz), o pico aparece em 180 Hz. Tudo certo.
 
----
+No **Caso 2** (200 Hz), o pico aparece em **20 Hz** — *exatamente* o valor previsto pela fórmula de rebatimento. A senoide de 180 Hz se *disfarçou* como uma senoide de 20 Hz, e **não há nada no sinal digital que permita perceber a fraude**. Um observador desavisado, recebendo só o sinal subamostrado, concluiria que se trata de um sinal de baixa frequência.
 
-## 4. Discussão
+A intuição geométrica: ao amostrar uma onda mais rápida que a metade da taxa, cada amostra "pula" mais de meio ciclo. O cérebro do algoritmo interpreta esse pulo como o caminho mais curto entre duas amostras — o que vira uma senoide de frequência inferior.
 
-O aliasing é um **erro irrecuperável**: uma vez amostrado mal, o sinal não traz nenhuma marca que permita reconstruir a frequência original. Observando apenas o sinal digital do caso B, qualquer engenheiro concluiria que a senoide tem 20 Hz — quando, na realidade, ela tem 180 Hz.
+## Lição prática
 
-A única forma de prevenir aliasing é instalar um **filtro anti-aliasing analógico** (passa-baixas) na entrada do conversor A/D, com frequência de corte abaixo de *Fs/2*. Isso é prática obrigatória em qualquer cadeia de aquisição profissional — desde osciloscópios digitais até placas de áudio e sistemas embarcados.
+**Aliasing é defeito de fábrica do A/D, não da FFT.** Uma vez ocorrido, nenhum algoritmo de processamento digital consegue reverter — a informação espectral foi destruída no instante da amostragem.
 
-**Analogia clássica:** o efeito de rodas de carro que parecem girar para trás em filmes. A câmera amostra (em quadros por segundo) uma rotação cuja frequência excede a metade da taxa do filme; o cérebro interpreta o movimento como uma rotação mais lenta — um alias visual.
+A **única** defesa é um **filtro anti-aliasing analógico** (passa-baixas) instalado *antes* do conversor A/D, com frequência de corte abaixo de *Fs/2*. Esse filtro joga fora as componentes acima de Nyquist *antes* que elas se misturem com as de baixa frequência. É prática obrigatória em qualquer cadeia profissional de aquisição: osciloscópios, placas de som, sistemas embarcados de instrumentação.
+
+> **Analogia clássica:** as rodas de carruagem que aparecem girando "para trás" em filmes de faroeste. A câmera amostra (em quadros/segundo) uma rotação cuja frequência excede metade da taxa de quadros. O cérebro humano interpreta o movimento como uma rotação inversa mais lenta — um *alias* visual.

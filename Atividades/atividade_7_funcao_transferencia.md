@@ -1,76 +1,102 @@
-# Atividade 7 — Função de Transferência, Resposta ao Impulso e Estabilidade
+# Atividade 7 — H(z), Resposta ao Impulso e Estabilidade
 
-## Enunciado
+**Pergunta investigada:** dado o sistema
 
-Considere a função de transferência discreta:
-
+```
 H(z) = 1 / (1 − 0,8·z⁻¹)
-
-Determine numericamente sua resposta ao impulso e represente-a graficamente. A partir do comportamento da sequência, discuta se o sistema é estável.
-
----
-
-## 1. Análise Teórica
-
-A equação de diferenças correspondente é:
-
-y[n] = x[n] + 0,8·y[n−1]
-
-Aplicando um impulso *x[n] = δ[n]*, a resposta ao impulso é:
-
-h[n] = (0,8)ⁿ · u[n]
-
-— uma sequência geométrica decrescente. O **único polo** está em *z = 0,8*, situado **dentro do círculo unitário** do plano-*z*.
-
----
-
-## 2. Implementação
-
-Script: [`atividade_7.m`](../Simulacoes/Octave/atividade_7.m)
-
-```matlab
-B = 1;  A = [1 -0.8];
-delta = [1 zeros(1, N-1)];
-h     = filter(B, A, delta);     % resposta ao impulso numerica
-polos = roots(A);                % polo em z = 0.8
 ```
 
-A comparação entre *h[n]* numérica (saída de `filter`) e a expressão analítica *(0,8)ⁿ* dá erro máximo de **5,55·10⁻¹⁷** — equivalente à precisão de máquina (épsilon do `double`).
+qual é sua resposta ao impulso? Ela "morre" ou "explode"? E como isso se relaciona com o polo do sistema?
 
 ---
 
-## 3. Resultados
+## Setup do experimento
 
-![Resposta ao impulso e mapa de polos](../Resultados/simulacao7atvd7.png)
+Equação de diferenças correspondente:
 
-- *h[n]* decai geometricamente para zero;
-- O polo *z = 0,8* aparece estritamente dentro do círculo unitário.
+```
+y[n] = x[n] + 0,8·y[n−1]
+```
 
----
+Aplicando *x[n] = δ[n]* (impulso unitário), a saída *y[n]* é, **por definição**, a resposta ao impulso *h[n]*.
 
-## 4. Discussão
+Analiticamente:
 
-### Critério de Estabilidade BIBO
+```
+h[n] = (0,8)ⁿ · u[n]
+```
+
+— sequência geométrica decrescente, porque *|0,8| < 1*.
+
+O **único polo** está em *z = 0,8*, **dentro do círculo unitário**.
+
+## Roteiro do código
+
+Script: [`atividade_7.m`](../Simulacoes/Octave/atividade_7.m).
+
+```matlab
+B = 1;  A = [1 -0.8];        % coeficientes de H(z)
+delta = [1 zeros(1, N-1)];   % impulso unitario
+h = filter(B, A, delta);     % h[n] numerica
+polos = roots(A);            % localiza polo
+```
+
+## Saída da simulação
+
+![h[n] decaindo + polo no plano-z](../Resultados/simulacao7atvd7.png)
+
+Saída do console:
+
+```
+Polo do sistema   : z = 0.8000
+|polo|            : 0.8000
+Status            : ESTAVEL (todos os polos dentro do circulo unitario)
+Erro maximo entre h numerica e h analitica (0.8^n): 5.55e-17
+```
+
+| Verificação | Resultado |
+|---|---|
+| *h[n]* obtida por `filter` × *(0,8)ⁿ* analítica | **erro ≤ 5,55·10⁻¹⁷** |
+| Posição do polo | *z = 0,8* (real, dentro do círculo unitário) |
+
+## O que o gráfico revela
+
+**Painel superior:** *h[n]* decai geometricamente — cada amostra vale 0,8× a anterior. Visualmente, vai a "zero" depois de uns 20–30 passos.
+
+**Painel inferior:** plano-*z*. Círculo unitário tracejado, polo em *z = 0,8* marcado com X, origem com +. O polo está claramente dentro da fronteira de estabilidade.
+
+## Critério BIBO de Estabilidade
 
 Um sistema LTI discreto é **estável BIBO** (*bounded-input, bounded-output*) se e somente se sua resposta ao impulso é **absolutamente somável**:
 
+```
 Σ |h[n]| < ∞
+```
 
-Para *h[n] = αⁿ·u[n]*, a soma converge se e somente se |α| < 1. Equivalentemente, no domínio-*z*, isso significa que **todos os polos de H(z) estão dentro do círculo unitário**.
+Para *h[n] = αⁿ·u[n]*, a soma é série geométrica:
 
-### Por que essa condição?
+```
+Σ αⁿ = 1/(1−α)    se |α| < 1
+```
 
-Quando |α| ≥ 1, a resposta ao impulso cresce indefinidamente, e qualquer perturbação finita produz saída ilimitada. Quando |α| → 1, o sistema fica "marginal" — uma componente em frequência igual ao polo produz ressonância infinita. Quando |α| < 1, o sistema dissipa naturalmente toda perturbação, retornando ao repouso.
+— converge se e somente se |α| < 1. Equivalentemente, **todos os polos de H(z) devem estar dentro do círculo unitário no plano-z**.
 
-### Paralelo com sistemas contínuos
+## Paralelo com sistemas contínuos
 
-| Domínio | Plano | Região estável |
-|---|---|---|
-| Contínuo (Laplace) | *s* | Re{s} < 0 (semi-plano esquerdo) |
-| Discreto (Transformada-Z) | *z* | \|z\| < 1 (dentro do círculo unitário) |
+| Domínio | Plano | Variável | Região estável |
+|---|---|---|---|
+| Contínuo (Laplace) | *s* | *s = σ + jω* | Re{s} < 0 (semi-plano esquerdo) |
+| Discreto (Transformada-Z) | *z* | *z = e^{sT}* | \|z\| < 1 (interior do círculo unitário) |
 
-A função exponencial *z = e^{sT}* mapeia o eixo imaginário do plano-*s* exatamente no círculo unitário do plano-*z*. O critério é o mesmo — apenas a forma muda.
+O mapeamento *z = e^{sT}* leva o eixo imaginário do plano-*s* exatamente sobre o círculo unitário do plano-*z*. Ou seja: o critério físico é o mesmo — **decaimento exponencial da resposta ao impulso** — apenas a forma matemática muda.
 
-### Conclusão
+## Lição prática
 
-O sistema em questão é **estável**. Seu único polo (*z = 0,8*) está dentro do círculo unitário, e a resposta ao impulso decai exponencialmente. Este é o protótipo de um **filtro IIR passa-baixas de primeira ordem**, base para muitas aplicações de filtragem digital simples e eficiente.
+Este é o **filtro IIR passa-baixas de primeira ordem**, presente em todo lugar:
+
+- Suavização de leituras de sensor (média móvel exponencial);
+- Demoduladores de envelope simples;
+- Estimadores de baseline em ECG, vibração, áudio;
+- Filtragem de DC em pré-amplificadores digitais.
+
+A estabilidade aqui depende exclusivamente de um número: |α|. Subir α perto de 1 deixa o filtro "mais seletivo" mas também mais lento; ultrapassar α = 1 transforma o "filtro" em uma exponencial divergente.
