@@ -49,16 +49,16 @@ Processamento-Digital-de-Sinais---Etapa-03/
 │       ├── pbl_analise_espectral_sensor.m
 │       └── run_all.m          <- script principal: roda tudo + salva PNGs
 └── Resultados/
-    ├── sim1_atividade1_senoide_fft.png
-    ├── sim2_atividade2_duas_senoides.png
-    ├── sim3_atividade3_aliasing.png
-    ├── sim4_atividade4_janelamento.png
-    ├── sim5_atividade5_senoide_ruido.png
-    ├── sim6_atividade6_dft_vs_fft.png
-    ├── sim7_atividade7_resposta_impulso.png
-    ├── sim8_atividade8_resolucao.png
-    ├── sim9_atividade9_harmonicos.png
-    └── sim10_desafio_sinal_real.png
+    ├── simulacao1atvd1.png
+    ├── simulacao2atvd2.png
+    ├── simulacao3atvd3.png
+    ├── simulacao4atvd4.png
+    ├── simulacao5atvd5.png
+    ├── simulacao6atvd6.png
+    ├── simulacao7atvd7.png
+    ├── simulacao8atvd8.png
+    ├── simulacao9atvd9.png
+    └── simulacao10desafio.png
 ```
 
 ---

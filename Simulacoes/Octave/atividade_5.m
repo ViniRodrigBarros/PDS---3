@@ -63,5 +63,5 @@ fprintf('enquanto o ruido branco espalha sua energia por toda a banda.\n');
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim5_atividade5_senoide_ruido.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim5_atividade5_senoide_ruido.png'));
+print(fig, fullfile(out_dir, 'simulacao5atvd5.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao5atvd5.png'));

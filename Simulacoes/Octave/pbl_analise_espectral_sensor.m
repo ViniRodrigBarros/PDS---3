@@ -93,5 +93,5 @@ fprintf('    o poder de diagnostico da analise espectral.\n');
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim10_desafio_sinal_real.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim10_desafio_sinal_real.png'));
+print(fig, fullfile(out_dir, 'simulacao10desafio.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao10desafio.png'));

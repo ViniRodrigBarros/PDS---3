@@ -69,5 +69,5 @@ fprintf('estritamente dentro do circulo unitario.\n');
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim7_atividade7_resposta_impulso.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim7_atividade7_resposta_impulso.png'));
+print(fig, fullfile(out_dir, 'simulacao7atvd7.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao7atvd7.png'));

@@ -58,8 +58,8 @@ xlim([0 fs/2]);
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim2_atividade2_duas_senoides.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim2_atividade2_duas_senoides.png'));
+print(fig, fullfile(out_dir, 'simulacao2atvd2.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao2atvd2.png'));
 
 % NOTA: a funcao auxiliar findpeaks_simple esta em arquivo separado
 % (findpeaks_simple.m) na mesma pasta — funciona automaticamente.

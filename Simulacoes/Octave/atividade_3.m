@@ -63,5 +63,5 @@ xlim([0 fs2/2]);
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim3_atividade3_aliasing.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim3_atividade3_aliasing.png'));
+print(fig, fullfile(out_dir, 'simulacao3atvd3.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao3atvd3.png'));

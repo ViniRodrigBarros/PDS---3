@@ -46,7 +46,7 @@ Como o sinal é real, basta exibir a metade *0 ≤ k < N/2* (frequências 0 a 0,
 
 ## 3. Resultados
 
-![Senoide discreta e seu espectro](../Resultados/sim1_atividade1_senoide_fft.png)
+![Senoide discreta e seu espectro](../Resultados/simulacao1atvd1.png)
 
 Valores medidos na execução do script:
 

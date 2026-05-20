@@ -35,7 +35,7 @@ Script: [`atividade_8.m`](../Simulacoes/Octave/atividade_8.m)
 
 ## 4. Resultados
 
-![Resolução espectral comparada](../Resultados/sim8_atividade8_resolucao.png)
+![Resolução espectral comparada](../Resultados/simulacao8atvd8.png)
 
 - **Caso A (N = 64):** os dois picos se fundem em um único "borrão" — a DFT é incapaz de separá-los.
 - **Caso B (N = 1024):** os dois picos aparecem **perfeitamente separados** em 100 Hz e 108 Hz.

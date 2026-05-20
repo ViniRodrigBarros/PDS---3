@@ -57,8 +57,8 @@ fprintf('direto para melhorar a resolucao em frequencia.\n');
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim8_atividade8_resolucao.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim8_atividade8_resolucao.png'));
+print(fig, fullfile(out_dir, 'simulacao8atvd8.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao8atvd8.png'));
 
 % NOTA: a funcao auxiliar sep_status esta em arquivo separado
 % (sep_status.m) na mesma pasta — funciona automaticamente.

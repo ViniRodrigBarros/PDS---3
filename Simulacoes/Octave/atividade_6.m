@@ -70,5 +70,5 @@ legend('DFT direta','FFT'); grid on;
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim6_atividade6_dft_vs_fft.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim6_atividade6_dft_vs_fft.png'));
+print(fig, fullfile(out_dir, 'simulacao6atvd6.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao6atvd6.png'));

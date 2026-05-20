@@ -31,7 +31,7 @@ O espectro foi plotado em **dB** para evidenciar os lóbulos laterais.
 
 ## 3. Resultados
 
-![Janelamento Hamming vs Hann vs Retangular](../Resultados/sim4_atividade4_janelamento.png)
+![Janelamento Hamming vs Hann vs Retangular](../Resultados/simulacao4atvd4.png)
 
 | Janela | Atenuação do 1º lóbulo lateral | Largura do lóbulo principal |
 |---|---|---|

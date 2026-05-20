@@ -65,5 +65,5 @@ fprintf('A FFT eh, portanto, a impressao digital do estado da maquina.\n');
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim9_atividade9_harmonicos.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim9_atividade9_harmonicos.png'));
+print(fig, fullfile(out_dir, 'simulacao9atvd9.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao9atvd9.png'));

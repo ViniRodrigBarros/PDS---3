@@ -38,7 +38,7 @@ A detecção dos picos usa uma função auxiliar `findpeaks_simple`, garantindo 
 
 ## 3. Resultados
 
-![Soma de duas senoides + FFT](../Resultados/sim2_atividade2_duas_senoides.png)
+![Soma de duas senoides + FFT](../Resultados/simulacao2atvd2.png)
 
 Picos efetivamente detectados pelo script:
 

@@ -41,7 +41,7 @@ A comparação entre *h[n]* numérica (saída de `filter`) e a expressão analí
 
 ## 3. Resultados
 
-![Resposta ao impulso e mapa de polos](../Resultados/sim7_atividade7_resposta_impulso.png)
+![Resposta ao impulso e mapa de polos](../Resultados/simulacao7atvd7.png)
 
 - *h[n]* decai geometricamente para zero;
 - O polo *z = 0,8* aparece estritamente dentro do círculo unitário.

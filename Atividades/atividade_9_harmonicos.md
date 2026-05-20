@@ -24,7 +24,7 @@ Script: [`atividade_9.m`](../Simulacoes/Octave/atividade_9.m)
 
 ## 3. Resultados
 
-![Sinal harmônico — espectro 1X / 2X / 3X](../Resultados/sim9_atividade9_harmonicos.png)
+![Sinal harmônico — espectro 1X / 2X / 3X](../Resultados/simulacao9atvd9.png)
 
 | Componente | Frequência | Amplitude |
 |---|---|---|

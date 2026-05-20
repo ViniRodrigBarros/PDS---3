@@ -63,5 +63,5 @@ fprintf('Quanto menor o lobulo lateral, menor o vazamento espectral.\n');
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim4_atividade4_janelamento.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim4_atividade4_janelamento.png'));
+print(fig, fullfile(out_dir, 'simulacao4atvd4.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao4atvd4.png'));

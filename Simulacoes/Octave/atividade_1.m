@@ -51,5 +51,5 @@ xlabel('Frequencia normalizada'); ylabel('|X[k]|/N'); grid on;
 script_dir = fileparts(mfilename('fullpath'));
 out_dir    = fullfile(script_dir, '..', '..', 'Resultados');
 if ~exist(out_dir, 'dir'); mkdir(out_dir); end
-print(fig, fullfile(out_dir, 'sim1_atividade1_senoide_fft.png'), '-dpng', '-r120');
-fprintf('Figura salva em: %s\n', fullfile(out_dir, 'sim1_atividade1_senoide_fft.png'));
+print(fig, fullfile(out_dir, 'simulacao1atvd1.png'), '-dpng', '-r120');
+fprintf('Figura salva em: %s\n', fullfile(out_dir, 'simulacao1atvd1.png'));

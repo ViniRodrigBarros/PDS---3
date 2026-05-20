@@ -30,7 +30,7 @@ Sinal de teste: *x[n] = cos(2π·0,125·n) + 0,5·sin(2π·0,25·n)*, *N = 16*.
 
 ## 2. Resultados
 
-![DFT direta vs FFT](../Resultados/sim6_atividade6_dft_vs_fft.png)
+![DFT direta vs FFT](../Resultados/simulacao6atvd6.png)
 
 A DFT direta e a saída de `fft` são **graficamente indistinguíveis**. Valores medidos na execução:
 

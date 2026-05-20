@@ -28,7 +28,7 @@ Script: [`atividade_5.m`](../Simulacoes/Octave/atividade_5.m). Parâmetros: *Fs 
 
 ## 3. Resultados
 
-![Senoide em meio ao ruído](../Resultados/sim5_atividade5_senoide_ruido.png)
+![Senoide em meio ao ruído](../Resultados/simulacao5atvd5.png)
 
 Valores medidos:
 

@@ -33,7 +33,7 @@ Para *f = 180 Hz* e *Fs = 200 Hz*:  *f_alias = |180 − 200| = 20 Hz*.
 
 ## 3. Resultados
 
-![Aliasing — comparação dos espectros](../Resultados/sim3_atividade3_aliasing.png)
+![Aliasing — comparação dos espectros](../Resultados/simulacao3atvd3.png)
 
 - **Caso A (Fs = 1000 Hz):** pico em 180 Hz, exatamente onde deveria estar.
 - **Caso B (Fs = 200 Hz):** o pico aparece em **20 Hz**, *disfarçado* como uma componente de baixa frequência.

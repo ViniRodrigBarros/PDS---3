@@ -41,7 +41,7 @@ Etapas:
 
 ## 3. Resultados
 
-![Análise espectral do sinal de vibração](../Resultados/sim10_desafio_sinal_real.png)
+![Análise espectral do sinal de vibração](../Resultados/simulacao10desafio.png)
 
 Os três picos relevantes são identificados claramente acima do piso de ruído. Valores medidos:
 
