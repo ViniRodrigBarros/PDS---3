@@ -135,10 +135,10 @@ viável.
 
 ## Questão 7 — Resposta ao impulso e estabilidade
 
-Para
-*H(z) = 1 / (1 − 0,8 z⁻¹)*, a resposta ao impulso obtida por `filter`
-coincide exatamente com a expressão analítica *h[n] = (0,8)ⁿ·u[n]* —
-erro numérico na faixa de 10⁻¹⁶.
+Para *H(z) = 1 / (1 − 0,8 z⁻¹)*, a resposta ao impulso obtida por
+`filter` coincide com a expressão analítica *h[n] = (0,8)ⁿ·u[n]* —
+erro numérico máximo medido de **5,55·10⁻¹⁷** (precisão de máquina
+do tipo `double`).
 
 A sequência **decai geometricamente** para zero, sendo absolutamente
 somável. Equivalentemente, o único polo do sistema, *z = 0,8*, está
@@ -189,12 +189,24 @@ máquina, permitindo identificar não apenas *que* há um problema, mas
 A simulação combina rotação de eixo (25 Hz), desalinhamento (50 Hz),
 falha de rolamento (154 Hz) e ruído de fundo. Aplicando-se janela de
 Hann e FFT, **todos os três picos relevantes** são identificados
-claramente acima do piso de ruído.
+claramente acima do piso de ruído. Valores medidos:
+
+| Componente | *f* esperada | *f* detectada | |X|/N medido |
+|---|---|---|---|
+| 1X — rotação | 25 Hz | 25,00 Hz | 0,2499 |
+| 2X — desalinhamento | 50 Hz | 50,00 Hz | 0,1500 |
+| BPFO — rolamento | 154 Hz | 154,00 Hz | 0,1015 |
+
+A localização foi perfeita até a resolução de bin (*Δf = 0,5 Hz*)
+porque *Fs* e *T* foram escolhidos de forma que as componentes
+caíssem exatamente em bins inteiros — uma situação ideal que
+dificilmente se reproduz numa aquisição real, mas que aqui evidencia
+o poder de detecção da técnica.
 
 Este exemplo unifica todas as ideias da etapa:
 
-- amostragem adequada (*fs = 5000 Hz*) para evitar aliasing;
-- janelamento para reduzir vazamento;
+- amostragem adequada (*Fs = 5000 Hz*) para evitar aliasing;
+- janelamento (Hann) para reduzir vazamento;
 - FFT para análise eficiente;
 - interpretação física dos picos como diagnóstico de falhas.
 
